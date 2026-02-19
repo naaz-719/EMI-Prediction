@@ -1,0 +1,15 @@
+artifact_uri: file:////content/drive/MyDrive/Labmentix projects /EMI Predictions/content/mlruns/762983407233689605/a6dcd670a1d74833a87c075589318545/artifacts
+end_time: 1771468365989
+entry_point_name: ''
+experiment_id: '762983407233689605'
+lifecycle_stage: active
+run_id: a6dcd670a1d74833a87c075589318545
+run_name: LogisticRegression
+run_uuid: a6dcd670a1d74833a87c075589318545
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1771468323619
+status: 3
+tags: []
+user_id: root
