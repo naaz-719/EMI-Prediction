@@ -7,6 +7,13 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import LabelEncoder
 
+import zipfile
+
+# Extract mlruns if the folder doesn't exist but the zip does
+if not os.path.exists("mlruns") and os.path.exists("mlruns.zip"):
+    with zipfile.ZipFile("mlruns.zip", 'r') as zip_ref:
+        zip_ref.extractall(".")
+
 # -------------------------------
 # ⚙️ CONFIG
 # -------------------------------
@@ -155,4 +162,5 @@ st.subheader("📊 MLflow Experiment Tracking Dashboard")
 st.info("To view experiment metrics, open the MLflow UI below:")
 st.code("!mlflow ui --port 5000")
 st.markdown("Then open [http://localhost:5000](http://localhost:5000) to explore models and metrics.")
+
 
