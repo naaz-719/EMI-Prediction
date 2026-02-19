@@ -18,18 +18,33 @@ os.makedirs(f"{ARTIFACTS_DIR}/classification", exist_ok=True)
 os.makedirs(f"{ARTIFACTS_DIR}/regression", exist_ok=True)
 
 # --- Step 1: Retrieve best runs from MLflow ---
-clf_runs = mlflow.search_runs(experiment_names=["EMI_Classification_Experiment"])
-reg_runs = mlflow.search_runs(experiment_names=["EMI_Regression_Experiment"])
+# --- Step 1: Retrieve best runs from MLflow ---
+try:
+    clf_runs = mlflow.search_runs(experiment_names=["EMI_Classification_Experiment"])
+    reg_runs = mlflow.search_runs(experiment_names=["EMI_Regression_Experiment"])
 
-# Sort and select best runs
-best_clf_run = clf_runs.sort_values(by="metrics.accuracy", ascending=False).iloc[0]
-best_reg_run = reg_runs.sort_values(by="metrics.RMSE", ascending=True).iloc[0]
+    # Check if classification runs exist
+    if clf_runs.empty:
+        st.error("❌ No runs found for 'EMI_Classification_Experiment'.")
+        st.info("Check if your 'mlruns' folder is uploaded to GitHub or if the experiment name is correct.")
+        st.stop()
+    
+    # Check if regression runs exist
+    if reg_runs.empty:
+        st.error("❌ No runs found for 'EMI_Regression_Experiment'.")
+        st.stop()
 
-print("✅ Best Classification Run:")
-print(best_clf_run[["run_id", "metrics.accuracy"]])
+    # If both exist, safely sort and select
+    best_clf_run = clf_runs.sort_values(by="metrics.accuracy", ascending=False).iloc[0]
+    best_reg_run = reg_runs.sort_values(by="metrics.RMSE", ascending=True).iloc[0]
 
-print("\n✅ Best Regression Run:")
-print(best_reg_run[["run_id", "metrics.RMSE"]])
+    # Display success in console/logs
+    print(f"✅ Best Classification Run: {best_clf_run['run_id']}")
+    print(f"✅ Best Regression Run: {best_reg_run['run_id']}")
+
+except Exception as e:
+    st.error(f"⚠️ MLflow Error: {e}")
+    st.stop()
 
 # --- Step 2: Load models from MLflow artifacts ---
 # Adjust artifact folder names (check your mlruns folder if needed)
@@ -140,3 +155,4 @@ st.subheader("📊 MLflow Experiment Tracking Dashboard")
 st.info("To view experiment metrics, open the MLflow UI below:")
 st.code("!mlflow ui --port 5000")
 st.markdown("Then open [http://localhost:5000](http://localhost:5000) to explore models and metrics.")
+
