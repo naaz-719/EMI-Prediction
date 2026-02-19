@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1771468819513
+current_stage: None
+description: null
+last_updated_timestamp: 1771468819513
+name: EMI_Regressor_Best
+run_id: 917343aa06054b1585301971556134d1
+run_link: null
+source: file:////content/drive/MyDrive/Labmentix projects /EMI Predictions/content/mlruns/762983407233689605/917343aa06054b1585301971556134d1/artifacts/models
+status: READY
+status_message: null
+storage_location: file:////content/drive/MyDrive/Labmentix projects /EMI Predictions/content/mlruns/762983407233689605/917343aa06054b1585301971556134d1/artifacts/models
+user_id: null
+version: 1
